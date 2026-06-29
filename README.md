@@ -9,6 +9,8 @@ A modern **Finance Management System** built with **HTML, CSS, JavaScript, and S
 FinLedger is a lightweight finance tracking application designed for small businesses. It allows users to manage transactions, monitor financial summaries, search records instantly, and export transaction data.
 
 ---
+<img width="1901" height="913" alt="image" src="https://github.com/user-attachments/assets/6623d309-99be-4bdc-80d5-d8d4093c4416" />
+
 
 ## ✨ Features
 
