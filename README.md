@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!-- Documentation-only file: optional support for setup and usage. -->
 # FinLedger — Finance Management App
 
@@ -102,3 +103,7 @@ CREATE POLICY "Allow all" ON finance
 - **Sidebar:** Dark `#1a1f2e`
 - **Income:** Green `#059669`
 - **Expense:** Red `#dc2626`
+=======
+# Finance-Web-
+A web-based finance management system with CRUD operations, search, summary dashboard, and real-time Supabase integration for tracking financial records.
+>>>>>>> afffebed4c881787fc8f2651513ddb49afa4f33c

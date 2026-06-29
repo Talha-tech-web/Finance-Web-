@@ -1,5 +1,3 @@
-
-
 const { createClient } = supabase;
 const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -9,33 +7,33 @@ let filteredData = [];
 let currentPage = 1;
 let editingId = null;
 let deletingId = null;
-let searchQuery = '';
+let searchQuery = "";
 
 // Dom
-const tbody = document.getElementById('txn-tbody');
-const searchInput = document.getElementById('search-input');
-const topSearchInput = document.getElementById('top-search');
-const addBtn = document.getElementById('add-btn');
-const txnModal = document.getElementById('txn-modal');
-const deleteModal = document.getElementById('delete-modal');
-const modalTitle = document.getElementById('modal-title');
-const txnForm = document.getElementById('txn-form');
-const saveBtn = document.getElementById('save-btn');
-const cancelBtn = document.getElementById('cancel-btn');
-const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
-const cancelDeleteBtn = document.getElementById('cancel-delete-btn');
-const closeModalBtn = document.getElementById('close-modal');
-const toast = document.getElementById('toast');
-const paginationEl = document.getElementById('pagination');
-const rowCountEl = document.getElementById('row-count');
+const tbody = document.getElementById("txn-tbody");
+const searchInput = document.getElementById("search-input");
+const topSearchInput = document.getElementById("top-search");
+const addBtn = document.getElementById("add-btn");
+const txnModal = document.getElementById("txn-modal");
+const deleteModal = document.getElementById("delete-modal");
+const modalTitle = document.getElementById("modal-title");
+const txnForm = document.getElementById("txn-form");
+const saveBtn = document.getElementById("save-btn");
+const cancelBtn = document.getElementById("cancel-btn");
+const confirmDeleteBtn = document.getElementById("confirm-delete-btn");
+const cancelDeleteBtn = document.getElementById("cancel-delete-btn");
+const closeModalBtn = document.getElementById("close-modal");
+const toast = document.getElementById("toast");
+const paginationEl = document.getElementById("pagination");
+const rowCountEl = document.getElementById("row-count");
 
 // Summary elements
-const totalEl = document.getElementById('total-amount');
-const incomeEl = document.getElementById('income-amount');
-const expenseEl = document.getElementById('expense-amount');
+const totalEl = document.getElementById("total-amount");
+const incomeEl = document.getElementById("income-amount");
+const expenseEl = document.getElementById("expense-amount");
 
 // ── INIT ──
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   loadData();
   setupEvents();
 });
@@ -45,11 +43,11 @@ async function loadData() {
   setLoading(true);
   const { data, error } = await db
     .from(TABLE_NAME)
-    .select('*')
-    .order('created_at', { ascending: false });
+    .select("*")
+    .order("created_at", { ascending: false });
 
   if (error) {
-    showToast('Failed to load data: ' + error.message, 'error');
+    showToast("Failed to load data: " + error.message, "error");
     setLoading(false);
     return;
   }
@@ -57,12 +55,16 @@ async function loadData() {
   allData = data || [];
   applySearch();
   updateSummary();
-  window.dispatchEvent(new Event('finledger:loaded'));
+  window.dispatchEvent(new Event("finledger:loaded"));
 }
 
 function updateSummary() {
-  const income = allData.filter(r => r.type === 'income').reduce((s, r) => s + Number(r.amount || 0), 0);
-  const expense = allData.filter(r => r.type === 'expense').reduce((s, r) => s + Number(r.amount || 0), 0);
+  const income = allData
+    .filter((r) => r.type === "income")
+    .reduce((s, r) => s + Number(r.amount || 0), 0);
+  const expense = allData
+    .filter((r) => r.type === "expense")
+    .reduce((s, r) => s + Number(r.amount || 0), 0);
   const total = income - expense;
 
   totalEl.innerHTML = formatCurrencyHTML(total);
@@ -76,14 +78,15 @@ function applySearch() {
   if (!q) {
     filteredData = [...allData];
   } else {
-    filteredData = allData.filter(r =>
-      (r.category || '').toLowerCase().includes(q) ||
-      (r.method || '').toLowerCase().includes(q) ||
-      (r.type || '').toLowerCase().includes(q) ||
-      (r.customer_supplier || '').toLowerCase().includes(q) ||
-      (r.product || '').toLowerCase().includes(q) ||
-      (r.invoice_no || '').toLowerCase().includes(q) ||
-      String(r.amount || '').includes(q)
+    filteredData = allData.filter(
+      (r) =>
+        (r.category || "").toLowerCase().includes(q) ||
+        (r.method || "").toLowerCase().includes(q) ||
+        (r.type || "").toLowerCase().includes(q) ||
+        (r.customer_supplier || "").toLowerCase().includes(q) ||
+        (r.product || "").toLowerCase().includes(q) ||
+        (r.invoice_no || "").toLowerCase().includes(q) ||
+        String(r.amount || "").includes(q),
     );
   }
   currentPage = 1;
@@ -108,19 +111,21 @@ function renderTable() {
     return;
   }
 
-  tbody.innerHTML = pageData.map(r => `
+  tbody.innerHTML = pageData
+    .map(
+      (r) => `
     <tr>
       <td>${formatDate(r.created_at)}</td>
-      <td class="text-muted">${r.created_at ? new Date(r.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) : '—'}</td>
-      <td class="text-muted">${escHtml(r.customer_supplier || '—')}</td>
-      <td><span class="cat-pill">${escHtml(r.category || '—')}</span></td>
-      <td class="text-muted">${escHtml(r.product || '—')}</td>
-      <td>${escHtml(r.method || '—')}</td>
-      <td class="${r.type === 'income' ? 'amount-income' : 'amount-expense'}">
-        ${r.type === 'income' ? '+' : '-'}${formatCurrency(Math.abs(r.amount))}
+      <td class="text-muted">${r.created_at ? new Date(r.created_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "—"}</td>
+      <td class="text-muted">${escHtml(r.customer_supplier || "—")}</td>
+      <td><span class="cat-pill">${escHtml(r.category || "—")}</span></td>
+      <td class="text-muted">${escHtml(r.product || "—")}</td>
+      <td>${escHtml(r.method || "—")}</td>
+      <td class="${r.type === "income" ? "amount-income" : "amount-expense"}">
+        ${r.type === "income" ? "+" : "-"}${formatCurrency(Math.abs(r.amount))}
       </td>
-      <td class="text-muted">${escHtml(r.mobile_no || '—')}</td>
-      <td><span class="type-badge ${r.type === 'income' ? 'type-income' : 'type-expense'}">${r.type || '—'}</span></td>
+      <td class="text-muted">${escHtml(r.mobile_no || "—")}</td>
+      <td><span class="type-badge ${r.type === "income" ? "type-income" : "type-expense"}">${r.type || "—"}</span></td>
       <td>
         <div class="action-btns">
           <button class="icon-btn" onclick="openEdit(${r.id})" title="Edit" aria-label="Edit transaction">
@@ -132,29 +137,40 @@ function renderTable() {
         </div>
       </td>
     </tr>
-  `).join('');
+  `,
+    )
+    .join("");
 }
 
 // Pagination
 function renderPagination() {
   const totalPages = Math.ceil(filteredData.length / PAGE_SIZE);
-  if (totalPages <= 1) { paginationEl.innerHTML = ''; return; }
+  if (totalPages <= 1) {
+    paginationEl.innerHTML = "";
+    return;
+  }
 
-  let html = '';
+  let html = "";
   // Prev
-  html += `<button class="page-btn" onclick="goPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''} aria-label="Previous page">‹</button>`;
+  html += `<button class="page-btn" onclick="goPage(${currentPage - 1})" ${currentPage === 1 ? "disabled" : ""} aria-label="Previous page">‹</button>`;
 
   for (let i = 1; i <= totalPages; i++) {
-    if (totalPages > 7 && i > 2 && i < totalPages - 1 && Math.abs(i - currentPage) > 1) {
-      if (i === 3 || i === totalPages - 2) html += `<span class="pagination-dots">…</span>`;
+    if (
+      totalPages > 7 &&
+      i > 2 &&
+      i < totalPages - 1 &&
+      Math.abs(i - currentPage) > 1
+    ) {
+      if (i === 3 || i === totalPages - 2)
+        html += `<span class="pagination-dots">…</span>`;
       continue;
     }
     const isActive = i === currentPage;
-    html += `<button class="page-btn ${isActive ? 'active' : ''}" onclick="goPage(${i})"${isActive ? ' aria-current="page"' : ''} aria-label="Page ${i}">${i}</button>`;
+    html += `<button class="page-btn ${isActive ? "active" : ""}" onclick="goPage(${i})"${isActive ? ' aria-current="page"' : ""} aria-label="Page ${i}">${i}</button>`;
   }
 
   // Next
-  html += `<button class="page-btn" onclick="goPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''} aria-label="Next page">›</button>`;
+  html += `<button class="page-btn" onclick="goPage(${currentPage + 1})" ${currentPage === totalPages ? "disabled" : ""} aria-label="Next page">›</button>`;
   paginationEl.innerHTML = html;
 }
 
@@ -169,86 +185,100 @@ function goPage(p) {
 // ── OPEN ADD MODAL ──
 function openAdd() {
   editingId = null;
-  modalTitle.textContent = 'Add Transaction';
+  modalTitle.textContent = "Add Transaction";
   txnForm.reset();
-  document.getElementById('field-date').value = new Date().toISOString().split('T')[0];
-  document.getElementById('field-time').value = new Date().toTimeString().slice(0, 5);
+  document.getElementById("field-date").value = new Date()
+    .toISOString()
+    .split("T")[0];
+  document.getElementById("field-time").value = new Date()
+    .toTimeString()
+    .slice(0, 5);
   openModal(txnModal);
 }
 
 // Open Edit Modal
 function openEdit(id) {
-  const r = allData.find(x => x.id === id);
+  const r = allData.find((x) => x.id === id);
   if (!r) return;
   editingId = id;
-  modalTitle.textContent = 'Edit Transaction';
+  modalTitle.textContent = "Edit Transaction";
 
-  document.getElementById('field-category').value = r.category || '';
-    const created = new Date(r.created_at);
-    document.getElementById('field-date').value = created.toISOString().split('T')[0];
-    document.getElementById('field-time').value = created.toTimeString().slice(0,5);
-  document.getElementById('field-amount').value = r.amount || '';
-  document.getElementById('field-method').value = r.method || '';
-  document.getElementById('field-type').value = r.type || 'expense';
-  document.getElementById('field-customer').value = r.customer_supplier || '';
-  document.getElementById('field-product').value = r.product || '';
-  document.getElementById('field-mobile').value = r.mobile_no || '';
-  document.getElementById('field-invoice').value = (r.invoice_no || '').replace(/^INV-/i, '');
+  document.getElementById("field-category").value = r.category || "";
+  const created = new Date(r.created_at);
+  document.getElementById("field-date").value = created
+    .toISOString()
+    .split("T")[0];
+  document.getElementById("field-time").value = created
+    .toTimeString()
+    .slice(0, 5);
+  document.getElementById("field-amount").value = r.amount || "";
+  document.getElementById("field-method").value = r.method || "";
+  document.getElementById("field-type").value = r.type || "expense";
+  document.getElementById("field-customer").value = r.customer_supplier || "";
+  document.getElementById("field-product").value = r.product || "";
+  document.getElementById("field-mobile").value = r.mobile_no || "";
+  document.getElementById("field-invoice").value = (r.invoice_no || "").replace(
+    /^INV-/i,
+    "",
+  );
 
   openModal(txnModal);
 }
 
 // Save
 async function saveTransaction() {
-  const dateVal = document.getElementById('field-date').value;
-  const timeVal = document.getElementById('field-time').value || "00:00";
+  const dateVal = document.getElementById("field-date").value;
+  const timeVal = document.getElementById("field-time").value || "00:00";
   let createdAtPayload = null;
   if (dateVal) {
-    const [year, month, day] = dateVal.split('-').map(Number);
-    const [hours, minutes] = timeVal.split(':').map(Number);
+    const [year, month, day] = dateVal.split("-").map(Number);
+    const [hours, minutes] = timeVal.split(":").map(Number);
     const localDate = new Date(year, month - 1, day, hours, minutes);
     createdAtPayload = localDate.toISOString();
   }
 
   const payload = {
-    category: document.getElementById('field-category').value.trim(),
-    amount: parseFloat(document.getElementById('field-amount').value),
-    method: document.getElementById('field-method').value,
-    type: document.getElementById('field-type').value,
-    customer_supplier: document.getElementById('field-customer').value.trim(),
-    product: document.getElementById('field-product').value.trim(),
-    mobile_no: document.getElementById('field-mobile').value.trim(),
-    invoice_no: document.getElementById('field-invoice').value.trim()
-      ? 'INV-' + document.getElementById('field-invoice').value.trim()
-      : '',
-    created_at: createdAtPayload
+    category: document.getElementById("field-category").value.trim(),
+    amount: parseFloat(document.getElementById("field-amount").value),
+    method: document.getElementById("field-method").value,
+    type: document.getElementById("field-type").value,
+    customer_supplier: document.getElementById("field-customer").value.trim(),
+    product: document.getElementById("field-product").value.trim(),
+    mobile_no: document.getElementById("field-mobile").value.trim(),
+    invoice_no: document.getElementById("field-invoice").value.trim()
+      ? "INV-" + document.getElementById("field-invoice").value.trim()
+      : "",
+    created_at: createdAtPayload,
   };
 
   if (!payload.category || !createdAtPayload || isNaN(payload.amount)) {
-    showToast('Please select a Category and fill in Date and Amount.', 'error');
+    showToast("Please select a Category and fill in Date and Amount.", "error");
     return;
   }
 
   saveBtn.disabled = true;
-  saveBtn.textContent = 'Saving…';
+  saveBtn.textContent = "Saving…";
 
   let error;
   if (editingId) {
-    ({ error } = await db.from(TABLE_NAME).update(payload).eq('id', editingId));
+    ({ error } = await db.from(TABLE_NAME).update(payload).eq("id", editingId));
   } else {
     ({ error } = await db.from(TABLE_NAME).insert([payload]));
   }
 
   saveBtn.disabled = false;
-  saveBtn.textContent = 'Save';
+  saveBtn.textContent = "Save";
 
   if (error) {
-    showToast('Error: ' + error.message, 'error');
+    showToast("Error: " + error.message, "error");
     return;
   }
 
   closeModal(txnModal);
-  showToast(editingId ? 'Transaction updated!' : 'Transaction added!', 'success');
+  showToast(
+    editingId ? "Transaction updated!" : "Transaction added!",
+    "success",
+  );
   loadData();
 }
 
@@ -261,44 +291,52 @@ function openDelete(id) {
 async function confirmDelete() {
   if (!deletingId) return;
   confirmDeleteBtn.disabled = true;
-  confirmDeleteBtn.textContent = 'Deleting…';
+  confirmDeleteBtn.textContent = "Deleting…";
 
-  const { error } = await db.from(TABLE_NAME).delete().eq('id', deletingId);
+  const { error } = await db.from(TABLE_NAME).delete().eq("id", deletingId);
 
   confirmDeleteBtn.disabled = false;
-  confirmDeleteBtn.textContent = 'Delete';
+  confirmDeleteBtn.textContent = "Delete";
 
   if (error) {
-    showToast('Error: ' + error.message, 'error');
+    showToast("Error: " + error.message, "error");
     return;
   }
 
   closeModal(deleteModal);
-  showToast('Transaction deleted.', 'success');
+  showToast("Transaction deleted.", "success");
   deletingId = null;
   loadData();
 }
 
 // Modal helpers
-function openModal(modal) { modal.classList.add('open'); }
-function closeModal(modal) { modal.classList.remove('open'); }
+function openModal(modal) {
+  modal.classList.add("open");
+}
+function closeModal(modal) {
+  modal.classList.remove("open");
+}
 
 // Setup events
 function setupEvents() {
-  addBtn.addEventListener('click', openAdd);
-  saveBtn.addEventListener('click', saveTransaction);
-  cancelBtn.addEventListener('click', () => closeModal(txnModal));
-  closeModalBtn.addEventListener('click', () => closeModal(txnModal));
-  confirmDeleteBtn.addEventListener('click', confirmDelete);
-  cancelDeleteBtn.addEventListener('click', () => closeModal(deleteModal));
+  addBtn.addEventListener("click", openAdd);
+  saveBtn.addEventListener("click", saveTransaction);
+  cancelBtn.addEventListener("click", () => closeModal(txnModal));
+  closeModalBtn.addEventListener("click", () => closeModal(txnModal));
+  confirmDeleteBtn.addEventListener("click", confirmDelete);
+  cancelDeleteBtn.addEventListener("click", () => closeModal(deleteModal));
 
   // Close modal on overlay click
-  txnModal.addEventListener('click', e => { if (e.target === txnModal) closeModal(txnModal); });
-  deleteModal.addEventListener('click', e => { if (e.target === deleteModal) closeModal(deleteModal); });
+  txnModal.addEventListener("click", (e) => {
+    if (e.target === txnModal) closeModal(txnModal);
+  });
+  deleteModal.addEventListener("click", (e) => {
+    if (e.target === deleteModal) closeModal(deleteModal);
+  });
 
   // Live search (table search)
   if (searchInput) {
-    searchInput.addEventListener('input', e => {
+    searchInput.addEventListener("input", (e) => {
       searchQuery = e.target.value;
       if (topSearchInput) topSearchInput.value = e.target.value;
       applySearch();
@@ -307,7 +345,7 @@ function setupEvents() {
 
   // Top bar search
   if (topSearchInput) {
-    topSearchInput.addEventListener('input', e => {
+    topSearchInput.addEventListener("input", (e) => {
       searchQuery = e.target.value;
       if (searchInput) searchInput.value = e.target.value;
       applySearch();
@@ -315,8 +353,8 @@ function setupEvents() {
   }
 
   // Press Enter in any form field to save
-  txnForm.addEventListener('keydown', e => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+  txnForm.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       saveTransaction();
     }
@@ -331,30 +369,44 @@ function setLoading(state) {
 }
 
 function formatCurrency(n) {
-  const formatted = Number(Math.abs(n) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  return (n < 0 ? '-' : '') + 'Rs,' + formatted;
+  const formatted = Number(Math.abs(n) || 0).toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+  return (n < 0 ? "-" : "") + "Rs," + formatted;
 }
 
 function formatCurrencyHTML(n) {
   const isNegative = n < 0;
-  const formatted = Number(Math.abs(n) || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  return `<span class="amount-currency">${isNegative ? '-' : ''}Rs,</span> <span class="amount-value">${formatted}</span>`;
+  const formatted = Number(Math.abs(n) || 0).toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+  return `<span class="amount-currency">${isNegative ? "-" : ""}Rs,</span> <span class="amount-value">${formatted}</span>`;
 }
 
 function formatDate(d) {
-  if (!d) return '—';
+  if (!d) return "—";
   const dt = new Date(d);
-  return dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  return dt.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
 }
 
 function escHtml(s) {
-  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 }
 
 let toastTimer;
-function showToast(msg, type = '') {
+function showToast(msg, type = "") {
   toast.textContent = msg;
-  toast.className = 'toast show ' + type;
+  toast.className = "toast show " + type;
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
+  toastTimer = setTimeout(() => toast.classList.remove("show"), 3000);
 }
