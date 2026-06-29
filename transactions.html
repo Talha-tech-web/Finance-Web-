@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinLedger — Transactions</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93V18c0-.55-.45-1-1-1s-1 .45-1 1v1.93C7.06 19.48 4.52 16.94 4.07 13H6c.55 0 1-.45 1-1s-.45-1-1-1H4.07C4.52 7.06 7.06 4.52 11 4.07V6c0 .55.45 1 1 1s1-.45 1-1V4.07C16.94 4.52 19.48 7.06 19.93 11H18c-.55 0-1 .45-1 1s.45 1 1 1h1.93c-.45 3.94-2.99 6.48-6.93 6.93z" />
+        </svg>
+      </div>
+      <span class="logo-text">Fin<span>Ledger</span></span>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-label">Main Menu</div>
+      <a href="index.html" class="nav-item">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
+        </svg>
+        Overview
+      </a>
+      <a href="transactions.html" class="nav-item active">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
+        </svg>
+        Activity
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user-info">
+        <div class="avatar">FL</div>
+        <div>
+          <div class="sidebar-user-name">FinLedger</div>
+          <div class="sidebar-user-role">Finance Manager</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="main">
+    <header class="topbar">
+      <div class="topbar-search">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 15.803a7.5 7.5 0 0010.607 0z" />
+        </svg>
+        <input type="text" placeholder="Search transactions…" id="top-search" aria-label="Search transactions">
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-user">
+          <div class="avatar">FL</div>
+          <span class="topbar-user-name">Finance Manager</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="page-content">
+      <div class="page-header">
+        <div>
+          <div class="page-title">Transactions Activity</div>
+          <div class="page-subtitle">View, manage, and track all income and expenses</div>
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-outline" id="export-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+            </svg>
+            Export CSV
+          </button>
+          <button class="btn btn-primary" id="add-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+            Add Transaction
+          </button>
+        </div>
+      </div>
+
+      <!-- Summary -->
+      <div class="summary-grid">
+        <div class="summary-card">
+          <div class="summary-label">
+            Total Balance
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" />
+            </svg>
+          </div>
+          <div class="summary-amount" id="total-amount">
+            <span class="amount-currency">Rs,</span>
+            <span class="amount-value">0.00</span>
+          </div>
+          <div class="summary-change text-muted" id="total-change">Loading…</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-label text-income">
+            Total Income
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M2.25 6L9 12.75l4.286-4.286a11.948 11.948 0 014.306 6.43l.776 2.898m0 0l3.182-5.511m-3.182 5.51l-5.511-3.181" />
+            </svg>
+          </div>
+          <div class="summary-amount text-income" id="income-amount">
+            <span class="amount-currency">Rs,</span>
+            <span class="amount-value">0.00</span>
+          </div>
+          <div class="summary-change change-up" id="income-change">Loading…</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-label text-expense">
+            Total Expenses
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M2.25 6L9 12.75l4.286-4.286a11.948 11.948 0 00-4.306 6.43l-.776 2.898m0 0L.776 12.237m3.182 5.51l5.511-3.181" />
+            </svg>
+          </div>
+          <div class="summary-amount text-expense" id="expense-amount">
+            <span class="amount-currency">Rs,</span>
+            <span class="amount-value">0.00</span>
+          </div>
+          <div class="summary-change change-down" id="expense-change">Loading…</div>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="table-card">
+        <div class="table-toolbar">
+          <span class="table-toolbar-title">Transaction Activity</span>
+          <div class="table-search">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 15.803a7.5 7.5 0 0010.607 0z" />
+            </svg>
+            <input type="text" placeholder="Search transactions…" id="search-input" aria-label="Search transactions">
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Customer Name</th>
+                <th>Category</th>
+                <th>Product Name</th>
+                <th>Method</th>
+                <th>Amount</th>
+                <th>Mobile No.</th>
+                <th>Type</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="txn-tbody">
+              <tr class="loading-row">
+                <td colspan="10">Loading transactions…</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="table-footer">
+          <span id="row-count"></span>
+          <div class="pagination" id="pagination"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add / Edit Modal -->
+  <div class="modal-overlay" id="txn-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <span class="modal-title" id="modal-title">Add Transaction</span>
+        <button class="modal-close" id="close-modal" aria-label="Close modal">
+          <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </>
+      </div>
+      <div class="modal-body">
+        <form id="txn-form" onsubmit="return false">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="field-category">Category *</label>
+              <select class="form-select" id="field-category">
+                <option value=""> Select Category </option>
+                <option value="Mattress">Mattress</option>
+                <option value="Pillow">Pillow</option>
+                <option value="Prayer Mats">Prayer Mats</option>
+                <option value="Uncovered Sheet">Uncovered Sheet</option>
+                <option value="Bed Sheet">Bed Sheet</option>
+                <option value="Backcare">Backcare</option>
+                <option value="Cushion">Cushion</option>
+                <option value="Sofa Cloth">Sofa Cloth</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="field-product">Product Name</label>
+              <input type="text" class="form-input" id="field-product" placeholder="Product name…">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="field-date">Date *</label>
+              <input type="date" class="form-input" id="field-date">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="field-time">Time *</label>
+              <input type="time" class="form-input" id="field-time">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="field-amount">Amount *</label>
+              <input type="number" class="form-input" id="field-amount" placeholder="0.00" step="0.01" min="0">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="field-type">Type *</label>
+              <select class="form-select" id="field-type">
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="field-method">Payment Method</label>
+              <select class="form-select" id="field-method">
+                <option value=""> Select </option>
+                <option value="Cash">Cash</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+                <option value="Cheque">Cheque</option>
+                <option value="Online">Online</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="field-customer">Customer Name</label>
+              <input type="text" class="form-input" id="field-customer" placeholder="Name…">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="field-mobile">Mobile No.</label>
+              <input type="tel" class="form-input" id="field-mobile" placeholder="03XX-XXXXXXX" maxlength="11" pattern="[0-9]{11}" title="Enter 11-digit mobile number">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="field-invoice">Invoice No.</label>
+              <div class="input-group">
+                <span class="input-prefix">INV-</span>
+                <input type="text" class="form-input input-with-prefix" id="field-invoice" placeholder="001" maxlength="3" pattern="[0-9]{1,3}">
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="cancel-btn">Cancel</button>
+        <button class="btn btn-primary" id="save-btn">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirm Modal -->
+  <div class="modal-overlay" id="delete-modal">
+    <div class="modal modal-sm">
+      <div class="confirm-body">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.5"
+          viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+        </svg>
+        <h3>Delete Transaction?</h3>
+        <p>This action cannot be undone. The record will be permanently removed from your database.</p>
+      </div>
+      <div class="modal-footer modal-footer-center">
+        <button class="btn btn-outline" id="cancel-delete-btn">Cancel</button>
+        <button class="btn btn-danger" id="confirm-delete-btn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/transactions.js"></script>
+  <script>
+    // Export CSV
+    document.getElementById('export-btn').addEventListener('click', () => {
+      if (!allData.length) { showToast('No data to export.', 'error'); return; }
+      const csvHeaders = ['id', 'category', 'date', 'time', 'amount', 'method', 'type', 'customer_supplier', 'product', 'quantity', 'invoice_no'];
+      const rows = allData.map(r => {
+        const dt = r.created_at ? new Date(r.created_at) : null;
+        const dateStr = dt ? dt.toISOString().split('T')[0] : '';
+        const timeStr = dt ? dt.toTimeString().slice(0, 5) : '';
+        return [
+          r.id,
+          r.category,
+          dateStr,
+          timeStr,
+          r.amount,
+          r.method,
+          r.type,
+          r.customer_supplier,
+          r.product,
+          r.quantity,
+          r.invoice_no
+        ].map(v => `"${String(v ?? '').replace(/"/g, '""')}"`).join(',');
+      });
+      const csv = [csvHeaders.join(','), ...rows].join('\n');
+      const a = document.createElement('a');
+      a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+      a.download = 'finledger_transactions_' + new Date().toISOString().slice(0, 10) + '.csv';
+      a.click();
+      showToast('CSV exported!', 'success');
+    });
+
+    // Pre-fill search from URL param
+    const urlQ = new URLSearchParams(window.location.search).get('q');
+    if (urlQ) {
+      document.getElementById('search-input').value = urlQ;
+      document.getElementById('top-search').value = urlQ;
+      searchQuery = urlQ;
+    }
+
+    // Update summary change text after load
+    function updateChangeTexts() {
+      const income = allData.filter(r => r.type === 'income');
+      const expense = allData.filter(r => r.type === 'expense');
+      document.getElementById('total-change').textContent = allData.length + ' total records';
+      document.getElementById('income-change').textContent = income.length + ' income records';
+      document.getElementById('expense-change').textContent = expense.length + ' expense records';
+    }
+
+    window.addEventListener('finledger:loaded', updateChangeTexts);
+
+    // Patch updateSummary to also fire event
+    const _origUpdateSummary = window.updateSummary;
+    window.updateSummary = function () {
+      if (typeof _origUpdateSummary === 'function') {
+        _origUpdateSummary();
+      }
+      updateChangeTexts();
+    };
+  </script>
+</body>
+
+</html>
