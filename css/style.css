@@ -34,7 +34,7 @@ body {
   font-size: 14px;
 }
 
-/* ── SIDEBAR ── */
+/* SIDEBAR */
 .sidebar {
   width: 240px;
   min-height: 100vh;
@@ -106,10 +106,10 @@ body {
 
 .sidebar-footer { padding: 16px; border-top: 1px solid rgba(255,255,255,0.07); }
 
-/* ── MAIN CONTENT ── */
+/* Main Content */
 .main { margin-left: 240px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
 
-/* ── TOPBAR ── */
+/* Topbar */
 .topbar {
   background: white;
   border-bottom: 1px solid var(--border);
@@ -166,7 +166,7 @@ body {
   font-weight: 600;
 }
 
-/* ── PAGE CONTENT ── */
+/* Page Content */
 .page-content { padding: 28px; flex: 1; }
 
 .page-header {
@@ -181,7 +181,7 @@ body {
 
 .header-actions { display: flex; gap: 10px; align-items: center; }
 
-/* ── BUTTONS ── */
+/* Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -204,7 +204,7 @@ body {
 .btn-danger:hover { background: #b91c1c; }
 .btn svg { width: 16px; height: 16px; }
 
-/* ── SUMMARY CARDS ── */
+/* Summary Cards */
 .summary-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -251,7 +251,7 @@ body {
 .change-up { color: var(--income); }
 .change-down { color: var(--expense); }
 
-/* ── TABLE CARD ── */
+/* Table Card */
 .table-card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -388,7 +388,7 @@ tbody td { padding: 14px 20px; font-size: 13px; color: var(--text); vertical-ali
 .page-btn:hover { border-color: var(--teal); color: var(--teal); }
 .page-btn.active { background: var(--teal); color: white; border-color: var(--teal); }
 
-/* ── MODAL ── */
+/* Modal */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -467,7 +467,7 @@ tbody td { padding: 14px 20px; font-size: 13px; color: var(--text); vertical-ali
 
 .form-input:focus, .form-select:focus { border-color: var(--teal); }
 
-/* Input group with prefix (e.g. INV-) */
+/* Input group */
 .input-group {
   display: flex;
   align-items: stretch;
@@ -506,7 +506,7 @@ tbody td { padding: 14px 20px; font-size: 13px; color: var(--text); vertical-ali
   gap: 10px;
 }
 
-/* ── TOAST ── */
+/* Toast */
 .toast {
   position: fixed;
   bottom: 24px; right: 24px;
@@ -530,7 +530,7 @@ tbody td { padding: 14px 20px; font-size: 13px; color: var(--text); vertical-ali
 .toast.success { background: var(--income); }
 .toast.error { background: var(--expense); }
 
-/* ── EMPTY STATE ── */
+/* Empty State */
 .empty-state {
   padding: 60px 20px;
   text-align: center;
@@ -540,7 +540,7 @@ tbody td { padding: 14px 20px; font-size: 13px; color: var(--text); vertical-ali
 .empty-state svg { width: 48px; height: 48px; margin-bottom: 12px; opacity: 0.3; }
 .empty-state p { font-size: 14px; }
 
-/* ── LOADING ── */
+/* Loading */
 .loading-row td {
   padding: 40px 20px;
   text-align: center;
@@ -548,13 +548,13 @@ tbody td { padding: 14px 20px; font-size: 13px; color: var(--text); vertical-ali
   font-size: 13px;
 }
 
-/* ── CONFIRM MODAL ── */
+/* Confirm Modal */
 .confirm-body { padding: 24px; text-align: center; }
 .confirm-body svg { width: 48px; height: 48px; color: var(--expense); margin-bottom: 12px; }
 .confirm-body h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
 .confirm-body p { font-size: 13px; color: var(--text-muted); }
 
-/* ── RESPONSIVE DESIGN ── */
+/* Responsive Design */
 @media (max-width: 1024px) {
   .summary-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -689,7 +689,6 @@ tbody td { padding: 14px 20px; font-size: 13px; color: var(--text); vertical-ali
   }
 }
 
-/* ── UTILITY & HELPER CLASSES (ELIMINATING INLINE STYLES) ── */
 
 /* User info & Sidebar Footer */
 .sidebar-user-info {
